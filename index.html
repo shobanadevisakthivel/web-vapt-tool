@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>VAPT Dashboard</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+body {
+    margin:0;
+    font-family: Arial;
+    background:#0b1220;
+    color:#e5e7eb;
+}
+
+/* TOP BAR */
+.topbar {
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:15px 25px;
+    background:#111827;
+}
+
+.topbar h2 {
+    color:#38bdf8;
+}
+
+.topbar a {
+    color:white;
+    margin-left:10px;
+    text-decoration:none;
+    background:#2563eb;
+    padding:8px 12px;
+    border-radius:8px;
+}
+
+/* SCAN BAR */
+.scan-box {
+    display:flex;
+    gap:10px;
+    padding:20px;
+}
+
+.scan-box input {
+    flex:1;
+    padding:12px;
+    border-radius:8px;
+    border:1px solid #334155;
+    background:#0f172a;
+    color:white;
+}
+
+.scan-box button {
+    padding:12px 16px;
+    border:none;
+    border-radius:8px;
+    background:#22c55e;
+    color:white;
+    font-weight:bold;
+}
+
+/* CARDS */
+.cards {
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:10px;
+    padding:0 20px;
+}
+
+.card {
+    background:#111827;
+    padding:15px;
+    border-radius:10px;
+    text-align:center;
+}
+
+/* LAYOUT */
+.layout {
+    display:grid;
+    grid-template-columns:2fr 1fr;
+    gap:20px;
+    padding:20px;
+}
+
+/* TABLE */
+table {
+    width:100%;
+    border-collapse:collapse;
+    background:#111827;
+    border-radius:10px;
+    overflow:hidden;
+}
+
+th,td {
+    padding:10px;
+    border-bottom:1px solid #1f2937;
+    font-size:13px;
+}
+
+th {
+    color:#38bdf8;
+}
+
+/* CHART */
+.chart-box {
+    background:#111827;
+    padding:15px;
+    border-radius:10px;
+}
+
+/* BADGES */
+.high { color:#ef4444; font-weight:bold; }
+.medium { color:#f59e0b; font-weight:bold; }
+.low { color:#22c55e; font-weight:bold; }
+
+</style>
+</head>
+
+<body>
+
+<!-- TOP -->
+<div class="topbar">
+    <h2>VAPT Security Dashboard</h2>
+    <div>
+        <a href="/download">Download Report</a>
+        <a href="/logout" style="background:#ef4444;">Logout</a>
+    </div>
+</div>
+
+<!-- SCAN INPUT -->
+<form method="POST" class="scan-box">
+    <input type="text" name="url" placeholder="Enter website URL to scan..." required>
+    <button>Scan</button>
+</form>
+
+<!-- SUMMARY -->
+<div class="cards">
+    <div class="card">Total Scans<br><h2>{{ total }}</h2></div>
+    <div class="card">High Risk<br><h2 class="high">{{ high }}</h2></div>
+    <div class="card">Medium Risk<br><h2 class="medium">{{ medium }}</h2></div>
+</div>
+
+<!-- MAIN -->
+<div class="layout">
+
+    <!-- TABLE -->
+    <div>
+        <h3>Scan History</h3>
+        <table>
+            <tr>
+                <th>URL</th>
+                <th>Vulnerability</th>
+                <th>Risk</th>
+                <th>Reason</th>
+                <th>Date & Time</th>
+            </tr>
+
+            {% for s in scans %}
+            <tr>
+                <td>{{ s.url }}</td>
+                <td>{{ s.vuln }}</td>
+                <td class="{{ s.risk|lower }}">{{ s.risk }}</td>
+                <td>{{ s.result }}</td>
+                <td>{{ s.scan_time }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+    <!-- CHART -->
+    <div class="chart-box">
+        <h3>Risk Distribution</h3>
+        <canvas id="chart"></canvas>
+    </div>
+
+</div>
+
+<script>
+new Chart(document.getElementById("chart"), {
+    type: "pie",
+    data: {
+        labels: ["High", "Medium", "Low"],
+        datasets: [{
+            data: [{{ high }}, {{ medium }}, {{ low }}],
+            backgroundColor: ["#ef4444", "#f59e0b", "#22c55e"]
+        }]
+    },
+    options: {
+        responsive: true,
+        plugins: {
+            legend: {
+                position: "bottom"
+            }
+        }
+    }
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,145 @@
+body {
+    margin: 0;
+    font-family: "Inter", sans-serif;
+    background: #05080f;
+    color: #e5e7eb;
+}
+
+/* LINKS */
+a {
+    text-decoration: none;
+}
+
+/* HEADER */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    background: #0b1220;
+    border-bottom: 1px solid #1f2937;
+}
+
+.header h1 {
+    font-size: 18px;
+}
+
+/* BUTTON */
+.btn {
+    padding: 8px 14px;
+    background: linear-gradient(135deg, #2563eb, #1d4ed8);
+    color: white;
+    border-radius: 8px;
+    font-size: 13px;
+    margin-left: 8px;
+}
+
+.btn:hover {
+    opacity: 0.9;
+}
+
+/* CARDS */
+.cards {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    padding: 20px;
+}
+
+.card {
+    background: #0b1220;
+    border: 1px solid #1f2937;
+    padding: 15px;
+    border-radius: 12px;
+    text-align: center;
+}
+
+.card h2 {
+    font-size: 22px;
+    margin: 0;
+}
+
+/* COLORS */
+.red { border-left: 4px solid #ef4444; }
+.orange { border-left: 4px solid #f59e0b; }
+.green { border-left: 4px solid #22c55e; }
+.blue { border-left: 4px solid #3b82f6; }
+
+/* SCAN BOX */
+.scan-box {
+    margin: 20px;
+    padding: 15px;
+    background: #0b1220;
+    border: 1px solid #1f2937;
+    border-radius: 12px;
+}
+
+input {
+    width: 70%;
+    padding: 10px;
+    background: #05080f;
+    border: 1px solid #1f2937;
+    color: white;
+    border-radius: 8px;
+}
+
+button {
+    padding: 10px 14px;
+    background: #2563eb;
+    border: none;
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+/* RESULT */
+.result {
+    margin: 10px 20px;
+    padding: 10px;
+    background: #0b1220;
+    border-left: 4px solid #3b82f6;
+    border-radius: 8px;
+}
+
+/* TABLE */
+table {
+    width: 95%;
+    margin: 20px auto;
+    border-collapse: collapse;
+    background: #0b1220;
+    border-radius: 12px;
+    overflow: hidden;
+    font-size: 13px;
+}
+
+th {
+    background: #0f172a;
+    text-align: left;
+    padding: 10px;
+    color: #9ca3af;
+}
+
+td {
+    padding: 10px;
+    border-bottom: 1px solid #1f2937;
+}
+
+.high { color: #ef4444; }
+.medium { color: #f59e0b; }
+.low { color: #22c55e; }
+
+/* CHART BOX */
+.chart-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    padding: 20px;
+}
+
+.chart-box {
+    background: #0b1220;
+    border: 1px solid #1f2937;
+    border-radius: 12px;
+    padding: 10px;
+    height: 220px;
+}
